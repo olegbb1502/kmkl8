@@ -1,0 +1,171 @@
+header{
+    background: $white;
+    padding: 20px 0 0;
+    .header-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 20px;
+        margin: 0 vw(100);
+        .contacts {
+            width: 60%;
+            ul {
+                display: flex;
+                justify-content: space-between;
+                li {
+                    display: flex;
+                    align-items: center;
+                    img {
+                        width: 40px;
+                        height: auto;
+                    }
+                    .text {
+                        margin-left: 10px;
+                        p {
+                            color: $primary;
+                            margin-bottom: 4px;
+                        }
+                        span,
+                        span > a {
+                            color: $secondary;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .header-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: $primary;
+        padding: 0 vw(100);
+        .main-nav {
+            width: 100%;
+            ul {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                li {
+                    position: relative;
+                    padding: 20px 0;
+                    a {
+                        color: $white;
+                        &.active {
+                            color: $accent;
+                            font-weight: 600;
+                        }
+                    }
+                    .sub-menu {
+                        display: none;
+                        position: absolute;
+                        top: 100%;
+                        left: 0;
+                        background: $accent;
+                        display: none;
+                        z-index: 99;
+                        width: 250px;
+                        box-sizing: border-box;
+                        padding: 10px;
+                        li {
+                            padding: 5px 0;
+                        }
+                    }
+                    &:hover > .sub-menu {
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    header {
+        width: 100%;
+        padding: 0;
+        .header-top {
+            margin: 0 20px;
+            .contacts {
+                width: 100%;
+                ul {
+                    justify-content: center;
+                    flex-wrap: wrap;
+                    li {
+                        width: 50%;
+                        justify-content: center;
+                        img {
+                            width: 23px;
+                        }
+                    }
+                }
+            }
+            &.hide {
+                transform: scaleY(0);
+                transform-origin: top;
+                transition: all 0.2s;
+                height: 0px;
+                padding-bottom: 0;
+            }
+        }
+
+        .header-bottom {
+            position: relative;
+            padding: 20px;
+           .main-nav {
+                width: 100vw;
+                height: 100vh;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background: $accent;
+                padding: 40px;
+                transform: scaleY(0);
+                transform-origin: top;
+                transition: transform 0.2s;
+                ul {
+                    display: block;
+                    text-align: center;
+                    li {
+                        padding: 10px;
+                        a {
+                            font-family: 'Work';
+                            font-style: normal;
+                            font-size: 24px;
+                            line-height: 28px;
+                            color: $primary !important;
+                            &.active {
+                                font-weight: 600;
+                            }
+                        }
+                        .sub-menu {
+                            position: relative;
+                            margin: 0 auto;
+                        }
+                    }
+                }
+
+                &.open {
+                    transform: scaleY(1);
+                }
+           } 
+           .mobile-button {
+                width: 25px;
+                height: 20px;
+                #mobile-close {
+                    display: none;
+                }
+                &.active {
+                    #mobile-open {
+                        display: none;
+                    }
+                    #mobile-close {
+                        display: block;
+                    }
+                }
+           }
+        }
+    }    
+}

@@ -1,0 +1,151 @@
+// Global styles
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.mobile {
+    display: none;
+}
+
+// Start typography block
+.display1 {
+    font-family: 'Yeseva';
+    font-style: normal;
+    font-weight: 400;
+    font-size: vw(48);
+    line-height: 1.15;
+}
+
+.display2 {
+    font-family: 'Yeseva';
+    font-style: normal;
+    font-weight: 400;
+    font-size: vw(32);
+    line-height: 1.15;
+}
+
+.title {
+    font-family: 'Work-Medium';
+    font-style: normal;
+    font-weight: 500;
+    font-size: vw(26);
+    line-height: 1.15;
+}
+
+.caption {
+    font-family: 'Work-Bold';
+    font-style: normal;
+    font-weight: 700;
+    font-size: vw(18);
+    line-height: 1.15;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+body,
+.body {
+    font-family: 'Work';
+    font-style: normal;
+    font-weight: 400;
+    font-size: vw(16);
+    line-height: 140%;
+}
+
+.button-text {
+    font-family: 'Work-Medium';
+    font-style: normal;
+    font-weight: 500;
+    font-size: vw(14);
+    line-height: 1.15;
+}
+
+.small {
+    font-family: 'Work';
+    font-style: normal;
+    font-weight: 400;
+    font-size: vw(14);
+    line-height: 1.15;
+}
+// End typography block
+
+// global media query styles
+@media screen and (max-width: 768px) {
+    .mobile {
+        display: block;
+    }
+    .desktop {
+        display: none;
+    }
+    .display1 {
+        font-family: 'Yeseva';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 42px;
+        line-height: 1.15;
+    }
+    
+    .display2 {
+        font-family: 'Yeseva';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 28px;
+        line-height: 1.15;
+    }
+    
+    .title {
+        font-family: 'Work-Medium';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 1.15;
+    }
+    
+    .caption {
+        font-family: 'Work-Bold';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 1.15;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+    }
+    
+    body,
+    .body {
+        font-family: 'Work';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 140%;
+    }
+    
+    .button-text {
+        font-family: 'Work-Medium';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 1.15;
+    }
+    
+    .small {
+        font-family: 'Work';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.15;
+    }
+}

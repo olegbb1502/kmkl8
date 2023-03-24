@@ -1,0 +1,12 @@
+// Colors
+$primary: #1F2B6C;
+$secondary: #159EEC;
+$accent: #BFD2F8;
+$black: #212124;
+$white: #FCFEFE;
+
+// Typography
+@include font('Yeseva', '../assets/fonts/Yeseva/Roboto-Regular');
+@include font('Work-Bold', '../assets/fonts/work/Roboto-Bold');
+@include font('Work-Medium', '../assets/fonts/work/Roboto-Medium');
+@include font('Work', '../assets/fonts/work/Roboto-Regular');
