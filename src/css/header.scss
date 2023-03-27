@@ -1,5 +1,5 @@
 header{
-    background: $white;
+    background: var(--white);
     padding: 20px 0 0;
     .header-top {
         display: flex;
@@ -22,12 +22,12 @@ header{
                     .text {
                         margin-left: 10px;
                         p {
-                            color: $primary;
+                            color: var(--primary);
                             margin-bottom: 4px;
                         }
                         span,
                         span > a {
-                            color: $secondary;
+                            color: var(--secondary);
                         }
                     }
                 }
@@ -39,7 +39,7 @@ header{
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: $primary;
+        background: var(--primary);
         padding: 0 vw(100);
         .main-nav {
             width: 100%;
@@ -52,9 +52,9 @@ header{
                     position: relative;
                     padding: 20px 0;
                     a {
-                        color: $white;
+                        color: var(--white);
                         &.active {
-                            color: $accent;
+                            color: var(--accent);
                             font-weight: 600;
                         }
                     }
@@ -63,7 +63,7 @@ header{
                         position: absolute;
                         top: 100%;
                         left: 0;
-                        background: $accent;
+                        background: var(--accent);
                         display: none;
                         z-index: 99;
                         width: 250px;
@@ -120,7 +120,7 @@ header{
                 position: absolute;
                 top: 100%;
                 left: 0;
-                background: $accent;
+                background: var(--accent);
                 padding: 40px;
                 transform: scaleY(0);
                 transform-origin: top;
@@ -131,11 +131,11 @@ header{
                     li {
                         padding: 10px;
                         a {
-                            font-family: 'Work';
+                            font-family: 'Montserrat';
                             font-style: normal;
                             font-size: 24px;
                             line-height: 28px;
-                            color: $primary !important;
+                            color: var(--primary) !important;
                             &.active {
                                 font-weight: 600;
                             }

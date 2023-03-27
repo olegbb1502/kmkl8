@@ -21,9 +21,13 @@ a {
     display: none;
 }
 
+.contnet-container>div {
+    padding: 0 vw(100) 50px;
+}
+
 // Start typography block
 .display1 {
-    font-family: 'Yeseva';
+    font-family: 'Yeseva', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: vw(48);
@@ -31,7 +35,7 @@ a {
 }
 
 .display2 {
-    font-family: 'Yeseva';
+    font-family: 'Yeseva', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: vw(32);
@@ -39,7 +43,7 @@ a {
 }
 
 .title {
-    font-family: 'Work-Medium';
+    font-family: 'Montserrat-Medium';
     font-style: normal;
     font-weight: 500;
     font-size: vw(26);
@@ -47,7 +51,7 @@ a {
 }
 
 .caption {
-    font-family: 'Work-Bold';
+    font-family: 'Montserrat-Bold';
     font-style: normal;
     font-weight: 700;
     font-size: vw(18);
@@ -58,7 +62,7 @@ a {
 
 body,
 .body {
-    font-family: 'Work';
+    font-family: 'Montserrat';
     font-style: normal;
     font-weight: 400;
     font-size: vw(16);
@@ -66,7 +70,7 @@ body,
 }
 
 .button-text {
-    font-family: 'Work-Medium';
+    font-family: 'Montserrat-Medium';
     font-style: normal;
     font-weight: 500;
     font-size: vw(14);
@@ -74,13 +78,198 @@ body,
 }
 
 .small {
-    font-family: 'Work';
+    font-family: 'Montserrat';
     font-style: normal;
     font-weight: 400;
     font-size: vw(14);
     line-height: 1.15;
 }
 // End typography block
+
+// Start components block
+.button.empty.button-text {
+    background: var(--accent);
+    border-radius: 50px;
+    padding: 15px 30px;
+    color: var(--primary);
+}
+.button.link.button-text {
+    color: var(--secondary);
+    position: relative;
+    &::after {
+        content: url("data:image/svg+xml,%3Csvg width='13' height='12' viewBox='0 0 13 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.21795 11L11.8333 6M11.8333 6L7.21795 1M11.8333 6H1' stroke='%231F2B6C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        position: absolute;
+        display: block;
+        top: 2px;
+        right: -21px;
+        width: 11px;
+        height: 10px;
+    }
+}
+.button.icon.button-text {
+    background: var(--accent);
+    border-radius: 50px;
+    padding: 15px 50px 15px 30px;
+    color: var(--primary);
+    position: relative;
+    &::after {
+        content: url("data:image/svg+xml,%3Csvg width='13' height='12' viewBox='0 0 13 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.21795 11L11.8333 6M11.8333 6L7.21795 1M11.8333 6H1' stroke='%231F2B6C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        position: absolute;
+        display: block;
+        top: 17px;
+        right: 20px;
+        width: 11px;
+        height: 10px;
+    }
+}
+
+// cards-grid
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 250px);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    align-items: center;
+    justify-content: center;
+    .card {
+        padding: 50px 80px;
+        border-radius: 5px;
+        .icon-place {
+            margin-bottom: 10px;
+        }
+        .card-title {
+            color: var(--black);
+        }
+
+        &:hover {
+            background: var(--primary);
+            .icon-place svg path {
+                fill: var(--accent);
+            }
+            .card-title {
+                color: var(--accent);
+            }
+        }
+    }
+}
+//end cards-grid
+//big cards grid
+.big-cards-grid {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    .big-card {
+        border-radius: 5px;
+        overflow: hidden;
+        .photo {
+            height: 350px;
+        }
+        .description {
+            background: var(--accent);
+            color: var(--primary);
+            padding: 24px;
+            margin-top: -10px;
+            .name {
+                margin-bottom: 10px;
+            }
+        }
+        .link {
+            padding: 10px;
+            background: var(--primary);
+            color: var(--accent);
+            width: 100%;
+            display: block;
+        }
+    }
+}
+//end big cards grid
+// text cards grid
+.text-cards-grid {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    .text-card {
+        max-width: 280px;
+        color: var(--primary);
+        padding: 10px;
+        border-radius: 5px;
+        p.small {
+            color: var(--accent);
+            margin-top: 10px;
+            text-align: right;
+        }
+        &:hover {
+            background: var(--primary);
+            color: var(--secondary);
+        }
+    }
+}
+// end text cards grid
+// contact section
+.contact-section {
+    text-align: center;
+    .caption {
+        color: var(--secondary);
+        margin-bottom: 10px;
+    }
+    .title-main {
+        margin-bottom: 60px;
+    }
+}
+.detail-cards-grid {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    .detail-card {
+        width: 240px;
+        padding: 50px 20px;
+        border-radius: 5px;
+        background: var(--accent);
+        text-align: left;
+        .icon-place {
+            margin-bottom: 15px;
+            svg path {
+                fill: transparent;
+                stroke: var(--primary);
+            }
+        }
+        .card-title, .details {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        &:hover {
+            background: var(--primary);
+            .card-title, .details {
+                color: var(--accent);
+            }
+            .icon-place svg path {
+                fill: transparent;
+                stroke: var(--accent);
+            }
+        }
+    }
+}
+// end contact section
+// End components block
+
+// WORDPRESS GLOBAL
+.wp-block-social-links:not(.is-style-logos-only)>li {
+    background: transparent !important;
+}
+.wp-block-social-links .wp-social-link a {
+    padding: 0 !important;
+}
+.wp-block-social-links .wp-block-social-link .wp-block-social-link-anchor, 
+.wp-block-social-links .wp-block-social-link .wp-block-social-link-anchor:active, 
+.wp-block-social-links .wp-block-social-link .wp-block-social-link-anchor:hover, 
+.wp-block-social-links .wp-block-social-link .wp-block-social-link-anchor:visited, 
+.wp-block-social-links .wp-block-social-link .wp-block-social-link-anchor svg {
+    fill: var(--accent) !important;
+    color: var(--accent) !important;
+}
+// END WORDPRESS GLOBAL
 
 // global media query styles
 @media screen and (max-width: 768px) {
@@ -90,61 +279,53 @@ body,
     .desktop {
         display: none;
     }
+    .contnet-container>div {
+        padding: 0 20px;
+    }
+    .big-cards-grid {
+        justify-content: center;
+    }
+    .detail-cards-grid {
+        justify-content: center;
+        .detail-card {
+            margin-bottom: 10px;
+        }
+    }
+    .text-cards-grid .text-card {
+        margin: 10px auto;
+    }
     .display1 {
-        font-family: 'Yeseva';
-        font-style: normal;
-        font-weight: 400;
         font-size: 42px;
         line-height: 1.15;
     }
     
     .display2 {
-        font-family: 'Yeseva';
-        font-style: normal;
-        font-weight: 400;
         font-size: 28px;
         line-height: 1.15;
     }
     
     .title {
-        font-family: 'Work-Medium';
-        font-style: normal;
-        font-weight: 500;
         font-size: 24px;
         line-height: 1.15;
     }
     
     .caption {
-        font-family: 'Work-Bold';
-        font-style: normal;
-        font-weight: 700;
         font-size: 18px;
         line-height: 1.15;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
     }
     
     body,
     .body {
-        font-family: 'Work';
-        font-style: normal;
-        font-weight: 400;
         font-size: 16px;
         line-height: 140%;
     }
     
     .button-text {
-        font-family: 'Work-Medium';
-        font-style: normal;
-        font-weight: 500;
         font-size: 14px;
         line-height: 1.15;
     }
     
     .small {
-        font-family: 'Work';
-        font-style: normal;
-        font-weight: 400;
         font-size: 14px;
         line-height: 1.15;
     }
