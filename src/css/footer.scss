@@ -1,12 +1,12 @@
 footer {
-    background: $primary;
+    background: var(--primary);
     padding: vh(20) vw(100);
-    color: $white;
+    color: var(--white);
     .footer-top {
         display: flex;
         justify-content: space-between;
         padding-bottom: 40px;
-        border-bottom: 1px solid $accent;
+        border-bottom: 1px solid var(--accent);
         .col {
             img {
                 margin-bottom: 18px;
@@ -14,9 +14,11 @@ footer {
             .footer-strong.caption {
                 margin-bottom: 38px;
             }
-            .list {
+            .list,
+            .menu,
+            ul {
                 li a {
-                    color: $white;
+                    color: var(--white);
                     margin-bottom: 8px;
                 }
             }
@@ -29,7 +31,7 @@ footer {
         align-items: center;
         padding-top: 20px;
         .reserved {
-            font-family: 'Work';
+            font-family: 'Montserrat';
             font-style: normal;
             font-weight: 400;
             font-size: 16px;
@@ -38,9 +40,6 @@ footer {
         .social-networks {
             display: flex;
             justify-content: end;
-            a:first-child {
-                margin-right: 15px;
-            }
         }
     }
 }
@@ -51,6 +50,7 @@ footer {
         .footer-top {
             flex-direction: column;
             align-items: center;
+            text-align: center;
             .col {
                 margin-bottom: 20px;
                 .footer-strong.caption {
