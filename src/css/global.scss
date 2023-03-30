@@ -132,7 +132,12 @@ body,
     align-items: center;
     justify-content: center;
     .card {
-        padding: 50px 80px;
+        // padding: 50px 80px;
+        height: 175px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         border-radius: 5px;
         .icon-place {
             margin-bottom: 10px;
@@ -234,14 +239,18 @@ body,
                 stroke: var(--primary);
             }
         }
-        .card-title, .details {
+        .card-title,
+        .details,
+        .details>a {
             color: var(--primary);
             margin-bottom: 5px;
         }
 
         &:hover {
             background: var(--primary);
-            .card-title, .details {
+            .card-title,
+            .details,
+            .details>a  {
                 color: var(--accent);
             }
             .icon-place svg path {
