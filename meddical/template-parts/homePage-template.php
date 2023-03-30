@@ -39,28 +39,33 @@ $headDoctors = get_posts(array(
       )
     )
   ));
+
+$customFields = get_fields(get_the_ID());
+$heroBannerContent = $customFields['hero_banner_content'];
+$welcomeContent = $customFields['welcome_block'];
+$helsiContent = $customFields['helsi_block'];
 ?>
 
     <div class="contnet-container">
         <div class="hero-banner" style="background-image: url(<?php echo $image[0]; ?>)">
             <div class="content">
-                <p class="top-caption caption">Caring for Life</p>
-                <h2 class="title-main display1">Leading the Way in Medical Excellence</h2>
-                <a href="#" class="button empty button-text body">Our Services</a>
+                <p class="top-caption caption"><?php echo $heroBannerContent['sub_title']; ?></p>
+                <h2 class="title-main display1"><?php echo $heroBannerContent['main_title']; ?></h2>
+                <a href="<?php echo $heroBannerContent['button_group']['button_link']; ?>" class="button empty button-text body"><?php echo $heroBannerContent['button_group']['button_text']; ?></a>
             </div>
         </div>
         <div class="short-description">
             <p class="top-caption caption">Вас вітає</p>
-            <h1 class="title-main display1">Київська міська лікарня №8</h1>
-            <p class="description body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque placerat scelerisque tortor ornare ornare. Convallis felis vitae tortor augue. Velit nascetur proin massa in. Consequat faucibus porttitor enim et.</p>
-            <a href="#" class="button link button-text">Детальніше</a>
+            <h1 class="title-main display1"><?php echo get_bloginfo('name'); ?></h1>
+            <p class="description body"><?php echo $welcomeContent['description']; ?></p>
+            <a href="<?php echo $welcomeContent['link']; ?>" class="button link button-text">Детальніше</a>
         </div>
-        <div class="about-picture helsi" style="background-image: url(/assets/main-page/about.jpeg)">
+        <div class="about-picture helsi" style="background-image: url(<?php echo $helsiContent['background']; ?>)">
             <h2 class="title-main display1">Ми на плафтормі Helsi</h2>
-            <a href="https://helsi.me/clinic/859ba28f-cdd3-4e06-ac2f-2cb37fd8d23f/doctors" class="button icon button-text">Детальніше</a>
+            <a href="<?php echo $helsiContent['link']; ?>" class="button icon button-text">Детальніше</a>
             <div class="bottom-border"></div>
         </div>
-        <div class="specialists">
+        <div class="specialists" id="sevices">
             <p class="top-caption caption">Завжди раді допомогти</p>
             <h2 class="title-main title">Наші спеціалісти</h2>
             <div class="specialists-grid cards-grid">
