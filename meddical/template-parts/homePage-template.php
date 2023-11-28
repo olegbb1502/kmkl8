@@ -20,33 +20,29 @@ if (has_post_thumbnail( $post->ID ) ) {
 }
 
 $headStufTaxonomy = get_term_by('slug', 'head-stuff', 'department');
+$departments_config = array(
+		'taxonomy' => 'department',
+		'hide_empty' => false,
+		'parent' => 0
+);
+if ($headStufTaxonomy) {
+	array_push($departments_config, array(
+		'exclude' => $headStufTaxonomy->term_id
+	));
+}
+$departments = get_categories($departments_config);
 
-$departments = get_categories([
-    'taxonomy' => 'department',
-    'hide_empty' => false,
-    'exclude' => $headStufTaxonomy->term_id
-]);
-
-$headDoctors = get_posts(array(
-    'post_type' => 'doctor',
-    'numberposts' => 3,
-    'tax_query' => array(
-      array(
-        'taxonomy' => 'department',
-        'field' => 'term_id', 
-        'terms' => $headStufTaxonomy->term_id,
-        'include_children' => true
-      )
-    )
+$doctors = get_posts(array(
+    'post_type' => 'doctor'
   ));
 
 $customFields = get_fields(get_the_ID());
 $heroBannerContent = $customFields['hero_banner_content'];
 $welcomeContent = $customFields['welcome_block'];
-$helsiContent = $customFields['helsi_block'];
+$videosShortcode = $customFields['videos_shortcode'];
 ?>
 
-    <div class="contnet-container">
+    <div class="content-container big">
         <div class="hero-banner" style="background-image: url(<?php echo $image[0]; ?>)">
             <div class="content">
                 <p class="top-caption caption"><?php echo $heroBannerContent['sub_title']; ?></p>
@@ -60,11 +56,7 @@ $helsiContent = $customFields['helsi_block'];
             <p class="description body"><?php echo $welcomeContent['description']; ?></p>
             <a href="<?php echo $welcomeContent['link']; ?>" class="button link button-text">Детальніше</a>
         </div>
-        <div class="about-picture helsi" style="background-image: url(<?php echo $helsiContent['background']; ?>)">
-            <h2 class="title-main display1">Ми на плафтормі Helsi</h2>
-            <a href="<?php echo $helsiContent['link']; ?>" class="button icon button-text">Детальніше</a>
-            <div class="bottom-border"></div>
-        </div>
+        <?php echo do_shortcode('[benefits]'); ?>
         <div class="specialists" id="sevices">
             <p class="top-caption caption">Завжди раді допомогти</p>
             <h2 class="title-main title">Наші спеціалісти</h2>
@@ -79,46 +71,29 @@ $helsiContent = $customFields['helsi_block'];
                 ?>
             </div>
         </div>
-        <div class="head-stuff">
-            <h2 class="title-main display1">Наше керівництво</h2>
-            <div class="big-cards-grid">
-                <?php 
-                    foreach($headDoctors as $doctor) {
-                        $avatar = get_the_post_thumbnail_url($doctor->ID);
-                        if ($avatar == '')  $avatar = 'http://www.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536';
-                        $name = $doctor->post_title;
-                        if (in_array(MY_THEMESLUG.'doctor-position', get_post_custom($doctor->ID)))
-                            $position = get_post_custom($doctor->ID)[MY_THEMESLUG.'doctor-position'][0];
-                        else $position = '';
-                        if (in_array(MY_THEMESLUG.'doctor-helsi', get_post_custom($doctor->ID)))
-                            $helsi = get_post_custom($doctor->ID)[MY_THEMESLUG.'doctor-helsi'][0];
-                        else $helsi = '#';
-                        echo '
-                        <div class="big-card doctor-card">
-                            <img src="'.$avatar.'" alt="profile" class="photo" />
-                            <div class="description">
-                                <p class="name">'.$name.'</p>
-                                <p class="position caption">'.$position.'</p>
-                            </div>
-                            <a href="'.$helsi.'" class="link" target="_blank">Переглянути профіль</a>
-                        </div>
-                        ';
-                    }
-                ?>
-            </div>
+        <!-- <div class="head-stuff">
+            <?php //echo do_shortcode('[doctors type="carousel" limit="1"]'); ?>
+        </div> -->
+        <div class="videos">
+            <?php echo do_shortcode($videosShortcode); ?>
         </div>
-        <!-- <div class="reviews text-cards-grid">
-            <div class="text-card">
-                <p class="body text">Lorem ipsum dolor sit amet, consectetur</p>
-                <p class="small">Ірина П.</p>
-            </div>
-            <div class="text-card">
-                <p class="body text">Lorem ipsum dolor sit amet, consectetur</p>
-                <p class="small">Кирил А.</p>
-            </div>
-            <div class="text-card">
-                <p class="body text">Lorem ipsum dolor sit amet, consectetur</p>
-                <p class="small">Євгенія Б.</p>
+        <!-- <div class="comments">
+            <h2 class="title-main title">Відгуки</h2>
+            <div class="reviews text-cards-grid swiffy-slider slider-item-show3 slider-nav-round slider-nav-page">
+                <div class="slider-container">
+                    <div class="text-card">
+                        <p class="body text">Lorem ipsum dolor sit amet, consectetur</p>
+                        <p class="small">Ірина П.</p>
+                    </div>
+                    <div class="text-card">
+                        <p class="body text">Lorem ipsum dolor sit amet, consectetur</p>
+                        <p class="small">Кирил А.</p>
+                    </div>
+                    <div class="text-card">
+                        <p class="body text">Lorem ipsum dolor sit amet, consectetur</p>
+                        <p class="small">Євгенія Б.</p>
+                    </div>
+                </div>
             </div>
         </div> -->
         <?php echo do_shortcode('[contacts]'); ?>

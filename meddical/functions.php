@@ -73,17 +73,35 @@ function meddical_setup() {
 		)
 	);
 
-	// Set up the WordPress core custom background feature.
-	add_theme_support(
-		'custom-background',
-		apply_filters(
-			'meddical_custom_background_args',
-			array(
-				'default-color' => 'ffffff',
-				'default-image' => '',
-			)
-		)
-	);
+	add_theme_support( 'editor-color-palette', array(
+		array(
+			'name'  => esc_attr__( 'Primary', MY_THEME_TEXTDOMAIN ),
+			'slug'  => 'primary-colors',
+			'color' => get_theme_mod( MY_THEMESLUG . '_theme_color_primary' ),
+		),
+		array(
+			'name'  => esc_attr__( 'Secondary', MY_THEME_TEXTDOMAIN ),
+			'slug'  => 'secondary-colors',
+			'color' => get_theme_mod( MY_THEMESLUG . '_theme_color_secondary' ),
+		),
+		array(
+			'name'  => esc_attr__( 'Accent', MY_THEME_TEXTDOMAIN ),
+			'slug'  => 'accent',
+			'color' => get_theme_mod( MY_THEMESLUG . '_theme_color_accent' ),
+		),
+		array(
+			'name'  => esc_attr__( 'Black', MY_THEME_TEXTDOMAIN ),
+			'slug'  => 'black',
+			'color' => get_theme_mod( MY_THEMESLUG . '_theme_color_black' ),
+		),
+		array(
+			'name'  => esc_attr__( 'White', MY_THEME_TEXTDOMAIN ),
+			'slug'  => 'white',
+			'color' => get_theme_mod( MY_THEMESLUG . '_theme_color_white' ),
+		),
+	) );
+
+	// add_theme_support( 'disable-custom-colors' );
 
 	// Add theme support for selective refresh for widgets.
 	add_theme_support( 'customize-selective-refresh-widgets' );
@@ -93,9 +111,7 @@ function meddical_setup() {
 	 *
 	 * @link https://codex.wordpress.org/Theme_Logo
 	 */
-	add_theme_support(
-		'custom-logo'
-	);
+	add_theme_support('custom-logo');
 }
 add_action( 'after_setup_theme', 'meddical_setup' );
 
@@ -186,8 +202,22 @@ function meddical_scripts() {
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
+	
+	wp_enqueue_script('jquery');
+	
 }
 add_action( 'wp_enqueue_scripts', 'meddical_scripts' );
+
+function get_attachment_url_by_slug( $slug ) {
+	$args = array(
+	  'post_type' => 'attachment',
+	  'name' => sanitize_title($slug),
+	  'posts_per_page' => 1,
+	);
+	$_header = get_posts( $args );
+	$header = $_header ? array_pop($_header) : null;
+	return $header ? wp_get_attachment_url($header->ID) : get_theme_mod( MY_THEMESLUG . '_default_image' );
+}
 
 /**
  * Implement the Custom Header feature.
@@ -225,3 +255,13 @@ require get_template_directory() . '/inc/contacts.php';
  * Doctors post type.
  */
 require get_template_directory() . '/inc/doctors.php';
+
+/**
+ * Social media news post type.
+ */
+require get_template_directory() . '/inc/social-medias.php';
+
+/**
+ * Disease post type.
+ */
+require get_template_directory() . '/inc/disease.php';

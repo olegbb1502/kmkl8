@@ -39,9 +39,9 @@ function meddical_customize_register( $wp_customize ) {
         'description' => '',
     ));
 
-    //add footer section
-    $wp_customize->add_section( MY_THEMESLUG . '_footer',  array(
-        'title'    => __( 'Footer', MY_THEME_TEXTDOMAIN ),
+	//add global section
+    $wp_customize->add_section( MY_THEMESLUG . '_global',  array(
+        'title'    => __( 'Global', MY_THEME_TEXTDOMAIN ),
         'priority' => 10,
         'panel' => MY_THEMESLUG . '_theme_options'
     ));
@@ -53,14 +53,30 @@ function meddical_customize_register( $wp_customize ) {
         'panel' => MY_THEMESLUG . '_theme_options'
     ));
 
-	//add contacts section
-    $wp_customize->add_section( MY_THEMESLUG . '_global',  array(
-        'title'    => __( 'Global', MY_THEME_TEXTDOMAIN ),
+    //add footer section
+    $wp_customize->add_section( MY_THEMESLUG . '_footer',  array(
+        'title'    => __( 'Footer', MY_THEME_TEXTDOMAIN ),
         'priority' => 10,
         'panel' => MY_THEMESLUG . '_theme_options'
     ));
 
-	
+    //add helsi setting link
+    $wp_customize->add_setting( MY_THEMESLUG . '_footer_helsi_link' );
+    $wp_customize->add_control( MY_THEMESLUG . '_footer_helsi_link',  array(
+        'type'     => 'text',
+        'label'    => __( 'Helsi link', MY_THEME_TEXTDOMAIN ),
+        'section'  => MY_THEMESLUG . '_footer',
+        'settings' => MY_THEMESLUG . '_footer_helsi_link'
+    ));  
+
+    //add helsi setting bg
+    $wp_customize->add_setting( MY_THEMESLUG . '_footer_helsi_bg' );
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, MY_THEMESLUG.'_footer_helsi_bg', array(
+		'label'    => __('Helsi BG image', MY_THEME_TEXTDOMAIN),
+        'section'  => MY_THEMESLUG . '_footer',
+        'settings' => MY_THEMESLUG . '_footer_helsi_bg'
+	)));
+
 	//add tagline settings
     $wp_customize->add_setting( MY_THEMESLUG . '_footer_tagline' );
     $wp_customize->add_control( MY_THEMESLUG . '_footer_tagline',  array(
@@ -147,12 +163,94 @@ function meddical_customize_register( $wp_customize ) {
         'settings' => MY_THEMESLUG . '_contacts_works_icon'
 	)));
 
+	// Theme Primary color
+	$wp_customize->add_setting( MY_THEMESLUG . '_theme_color_primary', array(
+        'default' => '#1F2B6C',
+    ));
+ 
+    // Add Controls Theme Primary color
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, MY_THEMESLUG . '_theme_color_primary', array(
+        'label' => __('Primary color', MY_THEME_TEXTDOMAIN),
+        'section' => MY_THEMESLUG . '_global',
+        'settings' => MY_THEMESLUG . '_theme_color_primary'
+ 
+    )));
+
+	// Theme Secondary color
+	$wp_customize->add_setting( MY_THEMESLUG . '_theme_color_secondary', array(
+        'default' => '#159EEC',
+    ));
+ 
+    // Add Controls Theme Secondary color
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, MY_THEMESLUG . '_theme_color_secondary', array(
+        'label' => __('Secondary color', MY_THEME_TEXTDOMAIN),
+        'section' => MY_THEMESLUG . '_global',
+        'settings' => MY_THEMESLUG . '_theme_color_secondary'
+ 
+    )));
+
+	// Theme Accent color
+	$wp_customize->add_setting( MY_THEMESLUG . '_theme_color_accent', array(
+		'default' => '#BFD2F8',
+	));
+	
+	// Add Controls Theme Accent color
+	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, MY_THEMESLUG . '_theme_color_accent', array(
+		'label' => __('Accent color', MY_THEME_TEXTDOMAIN),
+		'section' => MY_THEMESLUG . '_global',
+		'settings' => MY_THEMESLUG . '_theme_color_accent'
+	
+	)));
+
+	// Theme Black color
+	$wp_customize->add_setting( MY_THEMESLUG . '_theme_color_black', array(
+        'default' => '#212124',
+    ));
+ 
+    // Add Controls Theme Black color
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, MY_THEMESLUG . '_theme_color_black', array(
+        'label' => __('Black color', MY_THEME_TEXTDOMAIN),
+        'section' => MY_THEMESLUG . '_global',
+        'settings' => MY_THEMESLUG . '_theme_color_black'
+ 
+    )));
+
+	// Theme White color
+	$wp_customize->add_setting( MY_THEMESLUG . '_theme_color_white', array(
+		'default' => '#FCFEFE',
+	));
+	
+	// Add Controls Theme White color
+	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, MY_THEMESLUG . '_theme_color_white', array(
+		'label' => __('White color', MY_THEME_TEXTDOMAIN),
+		'section' => MY_THEMESLUG . '_global',
+		'settings' => MY_THEMESLUG . '_theme_color_white'
+	
+	)));
+
 	// Global service icon
 	$wp_customize->add_setting( MY_THEMESLUG . '_service_icon' );
 	$wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, MY_THEMESLUG.'_service_icon', array(
-		'label'    => __('Contact phone Icon', MY_THEME_TEXTDOMAIN),
+		'label'    => __('Service Icon', MY_THEME_TEXTDOMAIN),
         'section'  => MY_THEMESLUG . '_global',
         'settings' => MY_THEMESLUG . '_service_icon'
+	)));
+
+    // Global disease icon
+	$wp_customize->add_setting( MY_THEMESLUG . '_disease_icon' );
+	$wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, MY_THEMESLUG.'_disease_icon', array(
+		'label'    => __('Disease Icon', MY_THEME_TEXTDOMAIN),
+        'section'  => MY_THEMESLUG . '_global',
+        'settings' => MY_THEMESLUG . '_disease_icon'
+	)));
+
+	// Global default image
+	$wp_customize->add_setting( MY_THEMESLUG . '_default_image' );
+	$wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, MY_THEMESLUG . '_default_image', array(
+		'label'    => __('Default image', MY_THEME_TEXTDOMAIN),
+        'description' => __('Use this picture if no one else will be found', MY_THEME_TEXTDOMAIN),
+        'section'  => MY_THEMESLUG . '_global',
+        'settings' => MY_THEMESLUG . '_default_image'
 	)));
 }
 add_action( 'customize_register', 'meddical_customize_register' );

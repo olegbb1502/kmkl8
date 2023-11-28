@@ -1,8 +1,8 @@
-.contnet-container .hero-banner {
+.content-container .hero-banner {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    padding: vh(170) vw(100);
+    padding: vh(50) vw(100);
     .content {
         .top-caption {
             color: var(--secondary);
@@ -16,7 +16,11 @@
     }
 }
 
-.contnet-container .short-description {
+.content-container .hero-banner.big {
+    padding: vh(170) vw(100);
+}
+
+.content-container .short-description {
     padding: 64px vw(100);
     width: 70%;
     margin: 0 auto;
@@ -76,8 +80,8 @@
     }
 }
 
-.contnet-container .specialists,
-.contnet-container .head-stuff {
+.content-container .specialists,
+.content-container .head-stuff {
     padding: 60px vw(100);
     text-align: center;
     .top-caption {
@@ -91,8 +95,8 @@
 }
 
 @media screen and (max-width: 768px) {
-    .contnet-container .hero-banner {
-        padding: 40px 20px;
+    .content-container .hero-banner {
+        padding: 40px 20px !important;
         .content {
             display: flex;
             flex-direction: column;
@@ -103,15 +107,15 @@
             }
         }
     }
-    .contnet-container .short-description,
-    .contnet-container .specialists,
-    .contnet-container .head-stuff {
+    .content-container .short-description,
+    .content-container .specialists,
+    .content-container .head-stuff {
         padding: 40px 20px;
         width: 100%;
     }
 
-    .contnet-container .specialists,
-    .contnet-container .head-stuff {
+    .content-container .specialists,
+    .content-container .head-stuff {
         .title-main {
             margin-bottom: 20px;
         }

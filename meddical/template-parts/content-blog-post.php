@@ -9,11 +9,10 @@
 
 $image = get_the_post_thumbnail_url();
 if (!$image) {
-	$image = get_attachment_url_by_slug('news');
+	$image = get_attachment_url_by_slug('no-pictures');
 }
 $title = get_the_title();
 $content = wp_trim_words(get_the_content(), 30, '...');
-if (! is_single()):
 ?>
 
 <div id="post-<?php the_ID(); ?>" class="<?php $allClasses = get_post_class(); foreach ($allClasses as $class) { echo $class . " "; } ?>news-card">
@@ -42,4 +41,3 @@ if (! is_single()):
 	<p class="short-content"><?php echo $content; ?></p>
 	<a href="<?php echo esc_url( get_permalink() ); ?>" class="button icon button-text">Читати далі</a>
 </div>
-<?php endif;

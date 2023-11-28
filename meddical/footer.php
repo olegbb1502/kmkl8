@@ -10,7 +10,15 @@
  */
 $custom_logo_id = get_theme_mod( 'custom_logo' );
 $logo_image = wp_get_attachment_image_src( $custom_logo_id , 'full' )[0];
+$helsi_link = get_theme_mod('meddical_footer_helsi_link');
+$helsi_bg = get_theme_mod('meddical_footer_helsi_bg');
 ?>
+
+    <div class="about-picture helsi" style="background-image: url(<?php echo $helsi_bg; ?>)">
+        <h2 class="title-main display1">Записатись на прийом</h2>
+        <a href="<?php echo $helsi_link; ?>" class="button icon button-text">Детальніше</a>
+        <div class="bottom-border"></div>
+    </div>
 	<footer>
         <div class="footer-top">
             <div class="col">

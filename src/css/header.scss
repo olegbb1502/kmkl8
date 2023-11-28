@@ -41,6 +41,17 @@ header{
         align-items: center;
         background: var(--primary);
         padding: 0 vw(100);
+        position: static;
+        &.sticky {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            left: 0;
+            &.is-admin {
+                top: 32px;
+            }
+        }
         .main-nav {
             width: 100%;
             ul {

@@ -1,3 +1,4 @@
+
 // setup icons
 const setupIcon = async (el) => {
     const src = el.getAttribute('data-icon');
@@ -12,7 +13,6 @@ const setupIcon = async (el) => {
         .then(data => {
             container.innerHTML = data;
         })
-        .catch(err => {console.log(err);})
 }
 
 //mobile menu
@@ -28,6 +28,30 @@ const mobileMenuToggle = () => {
     }
 }
 
+const mobileCategoryToggle = () => {
+    const button = document.querySelector('.block-title');
+
+    if (button) {
+        button.addEventListener('click', () => {
+            button.classList.toggle('active');
+            document.querySelector('.category-list').classList.toggle('hide');
+        });
+    }
+}
+
+const stickyElements = (positionY) => {
+    const header = document.querySelector('.header-bottom');
+    const moveToTop = document.querySelector('.move-to-top');
+
+    if (positionY > 300) {
+        header.classList.add('sticky');
+        moveToTop.classList.add('sticky');
+    } else {
+        header.classList.remove('sticky');
+        moveToTop.classList.remove('sticky');
+    }
+}
+
 // Execute when JS will loaded
 (() => {
     const promises = [];
@@ -38,4 +62,16 @@ const mobileMenuToggle = () => {
     Promise.all(promises);
 
     mobileMenuToggle();
+    mobileCategoryToggle();
+
+    const doc = document.documentElement;
+    window.addEventListener("scroll", () => {
+        const top = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
+        stickyElements(top);
+    }, { passive: true });
+
+    const moveToTop = document.querySelector('.move-to-top');
+    moveToTop.addEventListener('click', () => {
+        window.scrollTo(0, 0);
+    })
 })();

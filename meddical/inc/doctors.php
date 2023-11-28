@@ -109,6 +109,14 @@ if ( !class_exists('myCustomFields') ) {
                 "scope"         =>   array( "doctor" ),
                 "capability"    => "edit_posts"
             ),
+            array(
+                "name"          => "department-imgae",
+                "title"         => "Department bg",
+                "description"   => "",
+                "type"          =>   "image",
+                "scope"         =>   array( "doctor" ),
+                "capability"    => "edit_posts"
+            ),
         );
         /**
         * PHP 4 Compatible Constructor
@@ -249,3 +257,167 @@ if ( !class_exists('myCustomFields') ) {
 if ( class_exists('myCustomFields') ) {
     $myCustomFields_var = new myCustomFields();
 }
+
+// Doctor shortcode
+function doctor_card_shortcode($atts) {
+    $default = array(
+        'avatar' => get_attachment_url_by_slug('profile'),
+        'name' => '',
+        'position' => '',
+        'helsi' => '#',
+    );
+    $args = shortcode_atts($default, $atts);
+    $avatar = $args['avatar'];
+    $name = $args['name'];
+    $position = $args['position'];
+    $helsi = $args['helsi'];
+    return '
+    <div class="big-card doctor-card">
+        <img src="'.$avatar.'" alt="profile" class="photo" />
+        <div class="description">
+            <p class="name">'.$name.'</p>
+            <p class="position caption">'.$position.'</p>
+        </div>
+        <a href="'.$helsi.'" class="link" target="_blank">Переглянути профіль</a>
+    </div>
+    ';
+}
+add_shortcode('doctor-card', 'doctor_card_shortcode');
+
+function doctors_carousel_shortcode($atts) {
+    $default = array(
+        'department_id' => '',
+        'department_slug' => '',
+        'limit' => -1,
+        'type' => 'list',
+        'orderby' => 'date',
+        'order' => 'DESC',
+        'title' => 'Лікарі'
+    );
+    $args = shortcode_atts($default, $atts);
+    $taxonomy_filter = array();
+    if (isset($atts['department_id'])) {
+        $taxonomy_filter = array(
+            'taxonomy' => 'department',
+            'field' => 'term_id', 
+            'terms' => $args['department_id'],
+            'include_children' => false
+        );
+    } else if (isset($atts['department_slug'])) {
+        $taxonomy_filter = array(
+            'taxonomy' => 'department',
+            'field' => 'slug', 
+            'terms' => $args['department_slug'],
+            'include_children' => false
+        );
+    }
+    $doctors_query = array(
+        'post_type' => 'doctor',
+        'numberposts' => $args['limit'],
+        'orderby' => $args['orderby'],
+		'order' => $args['order'],
+        'tax_query' => array()
+    );
+    if (count($taxonomy_filter) > 0) {
+        array_push($doctors_query['tax_query'],
+            array(
+                $taxonomy_filter
+            )
+        );
+    }
+    $doctors = get_posts($doctors_query);
+    if (count($doctors) > 0) {
+        $container_class = "big-cards-grid";
+        if ($args['type'] == 'carousel' && count($doctors) > 3) {
+            $container_class = "swiffy-slider slider-item-show3 slider-nav-round slider-nav-page";
+        }
+        $result = '<div class="doctors-section">
+        <h2 class="title-main display2">'.$args['title'].'</h2>
+        <div class="'.$container_class.'">';
+        if ($args['type'] == 'carousel' && count($doctors) > 3)
+            $result .= '<div class="slider-container">';
+        foreach($doctors as $doctor) {
+            $name = $doctor->post_title;
+            $post_custom = get_post_custom($doctor->ID);
+            $short_code = '[doctor-card name="'.$name.'" ';
+            if (get_the_post_thumbnail_url($doctor->ID)) {
+                $short_code .= 'avatar="'.get_the_post_thumbnail_url($doctor->ID).'" ';
+            }
+            if (isset($post_custom[MY_THEMESLUG.'doctor-position']))
+                $short_code .= 'position="'.$post_custom[MY_THEMESLUG.'doctor-position'][0].'" ';
+            if(isset($post_custom[MY_THEMESLUG.'doctor-helsi']))
+                $short_code .= 'helsi="'.$post_custom[MY_THEMESLUG.'doctor-helsi'][0].'" ';
+            $short_code .= ']';
+            $result .= do_shortcode($short_code);
+        }
+        if ($args['type'] == 'carousel') {
+            $result .= '</div>';
+            if (count($doctors) > 3) $result .= '
+            <button type="button" class="slider-nav" aria-label="Go left"></button>
+            <button type="button" class="slider-nav slider-nav-next" aria-label="Go left"></button>';
+        }
+
+        if ($args['type'] == 'carousel' && count($doctors) > 3) {
+            $result .= '</div>';
+        }
+            
+        $result .= '</div>';
+        return $result;
+    }
+    return '';
+}
+add_shortcode('doctors', 'doctors_carousel_shortcode');
+// End Doctor shortcode
+
+// Connect disease with Department edit page
+function display_connected_diseases_on_department_edit($term, $taxonomy) {
+    // Check if the current taxonomy is 'department'
+    if ($taxonomy !== 'department') {
+        return;
+    }
+
+    // Get the term ID
+    $term_id = $term->term_id;
+
+    // Get all disease posts that have the current Department term in their selected_departments meta
+    $disease_args = array(
+        'post_type' => 'disease', // Replace with your custom post type slug
+        'post_status' => 'publish',
+        'posts_per_page' => -1, // Retrieve all disease posts
+        'meta_query' => array(
+            array(
+                'key' => '_selected_departments',
+                'value' => $term_id,
+                'compare' => 'LIKE',
+            ),
+        ),
+    );
+
+    $disease_query = new WP_Query($disease_args);
+
+    // Output the list of connected diseases
+    echo '<tr class="form-field">';
+    echo '<th scope="row" valign="top">Поєднанні хвороби</th>';
+    echo '<td>';
+
+    if ($disease_query->have_posts()) {
+        echo '<ul style="marging: 0">';
+        while ($disease_query->have_posts()) {
+            $disease_query->the_post();
+            $disease_title = get_the_title();
+            $disease_edit_link = get_edit_post_link();
+            echo '<li><a href="' . esc_url($disease_edit_link) . '" target="_blank">' . esc_html($disease_title) . '</a></li>';
+        }
+        echo '</ul>';
+        wp_reset_postdata();
+    } else {
+        echo 'Жодної приєднаної хвороби.';
+    }
+
+    echo '</td>';
+    echo '</tr>';
+}
+
+add_action('department_edit_form_fields', 'display_connected_diseases_on_department_edit', 10, 2);
+
+// End Connect disease with Department edit page

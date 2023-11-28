@@ -56,6 +56,14 @@ const config = {
             filename: 'index.html',
             template: path.resolve(__dirname, 'src', 'index.html')
         }),
+        new HtmlWebpackPlugin({
+            filename: 'news.html',
+            template: 'src/news.html',
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'news-single.html',
+            template: 'src/news-single.html',
+        }),
         new MiniCssExtractPlugin({
             filename: 'css/[name].css',
         }),
@@ -64,6 +72,11 @@ const config = {
             from: path.resolve(__dirname, 'src', 'assets'),
             to: path.resolve(__dirname, 'dist', 'assets'),
             toType: 'dir',
+        },
+        {
+            from: path.resolve(__dirname, 'dist', 'css'),
+            to: path.resolve('/', 'Applications/MAMP/htdocs/wordpress/wp-content/themes/meddical'),
+            // toType: 'dir',
         },
         ])
     ]
